@@ -1,0 +1,35 @@
+class Queue{
+    constructor(){
+        this._queueData={}
+        this._head=0
+        this._index=0
+    }
+enqueue(val){
+    this._queueData[this._index] = val
+    this._index += 1
+}
+
+dequeue(){
+    delete this._queueData[this._head]
+    this._head += 1
+}
+
+peek(){
+    console.log("Peek",this._queueData[this._head])
+  return this._queueData[this._head]
+}
+}
+
+const q1 = new Queue()
+q1.enqueue(2)
+q1.enqueue(3)
+q1.enqueue(6)
+q1.enqueue(2)
+q1.enqueue(7)
+q1.enqueue(5)
+q1.dequeue()
+q1.dequeue()
+q1.peek()
+
+console.log("Queue",q1._queueData)
+
