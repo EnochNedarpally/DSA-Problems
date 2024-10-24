@@ -1,0 +1,43 @@
+
+//[1,{"sas',2},[{'a',2},{'b',3}],4]
+class Hash{
+constructor(){
+    this.store = []
+}
+
+set(key,value){
+    const index = this.getIndex(key)
+    if(this.store[key]){
+        if(!Array.isArray(this.store[key])){
+            this.store[key] = [this.store[key]]
+        }
+        this.store[key].push(value)
+    }else this.store[key]=value
+}
+get(key,value){
+    const index = this.getIndex(key)
+    if(!Array.isArray(this.store[key])){
+        return this.store[key]
+    }
+}
+getIndex(value) {
+    value = value.toString();
+    let sum = 0;
+    for (var i = 0, len = value.length; i < len; i++) {
+        sum += value.charCodeAt(i);
+    }
+    return sum;
+}    
+}
+
+const h1 = new Hash()
+h1.set('a',1)
+h1.set('b',3)
+h1.set('c',2)
+h1.set('c',4)
+h1.set('d',1)
+
+console.log(h1.get('c'))
+
+
+
