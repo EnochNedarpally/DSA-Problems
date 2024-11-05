@@ -1,0 +1,80 @@
+/*
+Knapsack Greedy problem
+Step 1: create ratio for each item ratio = value/weight
+Step 2: sort the array in descending order of ratio
+Step 3: Iterate through sorted array and find fraction of each item, fraction will be between 0 and 1 Min(1,remainingCapacity/weight)
+Step 4: calculate totalValue and remainingCapacity
+        totalValue = fraction + value of current element
+        remainingCapacity = fraction - weight of current element
+[[0],[]]
+*/
+
+// class Item{
+//     constructor(weight,value){
+//         this.weight=weight;
+//         this.value=value;
+//         this.ratio=value/weight;
+//     }
+
+// }
+// function knapSackGreedy(items,capacity){
+//     let remainingCapacity = capacity;
+//     let totalValue = 0
+//     let sortedItems = items.sort((a,b)=>b.ratio - a.ratio)
+//     for (let index = 0; index < sortedItems.length; index++) {
+//         const currentElement = sortedItems[index];
+//         let fraction = Math.min(1,remainingCapacity/ currentElement.weight)
+//         totalValue += fraction * currentElement.value
+//         remainingCapacity -= fraction * currentElement.weight
+//     }
+//     return totalValue
+// }
+
+// const items=[
+//     new Item(10, 60),
+//     new Item(20, 100),
+//     new Item(30, 120)
+// ]
+
+
+
+
+
+/*Dynamic programming Approach
+[0,60,120,180,240,0]
+Step 1: create dp array with length of capacity
+Step 2: Loops throught the dp array
+Step 3: for each element of the array calculate Max value
+Step 4: Max Value formula is (maxvalue, dp[i - items[j].weight] + items[j].value)
+*/
+class Item {
+    constructor(weight, value) {
+        this.weight = weight;
+        this.value = value;
+    }
+}
+
+function fractionalKnapsackDynamic(items, capacity) {
+    const dp = new Array(capacity).fill(0)
+    for(i=1;i< capacity + 1;i++){
+        let maxValue = 0
+        for(j=0;j<items.length ; j++){
+            if(items[j].weight <= i){
+                maxValue = Math.max(maxValue,dp[i - items[j].weight] + items[j].value)//120
+            }
+        }
+        dp[i] = maxValue
+    }
+    return dp[capacity]
+}
+
+
+const items = [
+    new Item(1, 60),
+    new Item(2, 100),
+    new Item(3, 120)
+];
+const capacity = 5;
+
+console.log(`Maximum value obtained using dynamic approach is`,
+    fractionalKnapsackDynamic(items, capacity));
